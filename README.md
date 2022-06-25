@@ -15,3 +15,17 @@
 10. MusicPlayService의 BroadcastReceiver에서 isPlaying(현재 재생중인지)를 MainActivity로 전달(sendBroadcast).
 11. isPlaying에 따라 Play Button의 이미지를 pause나 play arrow로 변경.
 12. 서비스 바인딩을 통해 MusicPlayService의 getMusicCurrentTime메소드를 MainActivity에서 호출 후 SeekBar Progress에 적용.
+13. 일부 기능을 제외하고는 MusicPlayerActivity도 MainActivity와 동일한 로직으로 구성됨.
+
+발견된 에러
+ - next 버튼이나 pre 버튼 빠르게 연타할 시 E/MediaPlayerNative: error (-38, 0)오류 발생
+ - 원인: MediaPlayer가 준비되지 않은 상태에서 start해서 발생
+ - 해결방안: 찾는중
+
+구현중인 기능
+ - 플레이리스트 생성
+
+구현 예정인 기능
+ - 앨범별로 볼 수 있는 RecyclerView 생성
+ - 폴더별로 볼 수 있는 RecyclerView 생성
+ - 가사 플로팅 기능
