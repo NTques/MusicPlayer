@@ -34,7 +34,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Cust
         View view = inflater.inflate(R.layout.music_list_item, parent, false);
         CustomViewHolder customViewHolder = new CustomViewHolder(view);
 
-        Log.d("야", "호");
+        Log.d("onCreateViewHolder", "True");
         return customViewHolder;
     }
 

@@ -38,7 +38,6 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.Custom
         View view = inflater.inflate(R.layout.play_list_item, parent, false);
         CustomViewHolder customViewHolder = new CustomViewHolder(view);
 
-        Log.d("야", "시발");
         return customViewHolder;
     }
 
