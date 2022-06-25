@@ -48,6 +48,8 @@ public class MusicPlayService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d("서비스", "시작");
+
+        //포지션만 Intent하게 될 경우를 대비하여 if 문으로 playList값이 null일 경우 NullPointError 방지
         if (intent.getSerializableExtra("playList") != null) {
             playList = (ArrayList<MusicDTO>) intent.getSerializableExtra("playList");
         }
@@ -62,6 +64,7 @@ public class MusicPlayService extends Service {
         mediaPlayer.setWakeMode(getApplicationContext(), PowerManager.PARTIAL_WAKE_LOCK);
         musicData = playList.get(position);
 
+        //음악 재생이 완료되었을 때 curPos++ 후 setMusic으로 다음곡 자동재생
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
@@ -82,6 +85,8 @@ public class MusicPlayService extends Service {
                 mediaPlayer.start();
                 Log.d("재생", musicData.getTitle());
 
+                /* 음악이 변경될 때마다 MainActivity와 MusicPlayActivity의 BoradcastReceiver로
+                재생중인 음악의 데이터 전송 */
                 Intent mainIntent = new Intent("Main");
                 mainIntent.putExtra("musicData", musicData);
                 mainIntent.putExtra("isPlaying", isPlaying());
