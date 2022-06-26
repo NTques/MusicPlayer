@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.SeekBar;
 
@@ -107,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
             isPlaying = intent.getBooleanExtra("isPlaying", false);
 
             //음악이 끝나고 다시 시작되는 사이 SeekBar 프로그레스 세팅에 지연이 있어 선언
-            curTime = ms.getMusicCurrentTime();
+            //curTime = ms.getMusicCurrentTime();
             binding.seekBar.setProgress(curTime);
 
             Log.d("메인", "리시버");
@@ -175,10 +176,34 @@ public class MainActivity extends AppCompatActivity {
         binding.playerLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent playerIntent = new Intent(MainActivity.this, MusicPlayerActivity.class);
-                playerIntent.putExtra("musicData", musicData);
-                playerIntent.putExtra("isPlaying", isPlaying);
-                startActivity(playerIntent);
+//                Intent playerIntent = new Intent(MainActivity.this, MusicPlayerActivity.class);
+//                playerIntent.putExtra("musicData", musicData);
+//                playerIntent.putExtra("isPlaying", isPlaying);
+//                startActivity(playerIntent);
+            }
+        });
+
+        binding.playerLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                float startY = 0;
+                float curY = event.getY();
+
+                if (action == MotionEvent.ACTION_DOWN) {
+                    startY = curY;
+                    Log.d("시작점", String.valueOf(startY));
+                } else if (action == MotionEvent.ACTION_UP) {
+                    Log.d("종료점", String.valueOf(curY));
+                    if (startY < curY) {
+                        Log.d("Visibillity", "Gone");
+                        binding.playerLayout.setVisibility(View.GONE);
+                        serviceIntent.putExtra("release", true);
+                        sendBroadcast(serviceIntent);
+                        unbindService(conn);
+                    }
+                }
+                return false;
             }
         });
 
@@ -226,9 +251,11 @@ public class MainActivity extends AppCompatActivity {
             while (true) {
                 try {
                     Thread.sleep(500);
-                    curTime = ms.getMusicCurrentTime();
                 } catch (Exception e) {
                     e.printStackTrace();
+                }
+                if (isPlaying) {
+                    curTime = ms.getMusicCurrentTime();
                 }
                 if (!isTracking) {
                     binding.seekBar.setProgress(curTime);

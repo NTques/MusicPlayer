@@ -12,15 +12,13 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.util.Log;
-import android.widget.Toast;
-
 import com.example.musicplayer.dto.MusicDTO;
 
 import java.util.ArrayList;
 
 public class MusicPlayService extends Service {
     private ArrayList<MusicDTO> playList = new ArrayList<>();
-    private MediaPlayer mediaPlayer = new MediaPlayer();
+    private MediaPlayer mediaPlayer;
     private MusicDTO musicData = new MusicDTO();
     private int curPos;
 
@@ -49,6 +47,7 @@ public class MusicPlayService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d("서비스", "시작");
 
+        mediaPlayer = new MediaPlayer();
         //포지션만 Intent하게 될 경우를 대비하여 if 문으로 playList값이 null일 경우 NullPointError 방지
         if (intent.getSerializableExtra("playList") != null) {
             playList = (ArrayList<MusicDTO>) intent.getSerializableExtra("playList");
@@ -93,6 +92,7 @@ public class MusicPlayService extends Service {
                 sendBroadcast(mainIntent);
             }
         });
+
         setMusic();
     }
 
@@ -141,6 +141,13 @@ public class MusicPlayService extends Service {
                 setMusic();
             }
 
+            boolean doRelease = intent.getBooleanExtra("release", false);
+            if (doRelease) {
+                mainIntent.putExtra("isPlaying", false);
+                sendBroadcast(mainIntent);
+                mediaPlayer.release();
+                MusicPlayService.super.onDestroy();
+            }
         }
     };
 
