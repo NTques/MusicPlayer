@@ -200,7 +200,7 @@ public class MusicPlayerActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if (!isTracking) {
+                if (isPlaying && !isTracking) {
                     Message msg = handler.obtainMessage();
                     handler.sendMessage(msg);
                 }

@@ -108,8 +108,8 @@ public class MainActivity extends AppCompatActivity {
             isPlaying = intent.getBooleanExtra("isPlaying", false);
 
             //음악이 끝나고 다시 시작되는 사이 SeekBar 프로그레스 세팅에 지연이 있어 선언
-            //curTime = ms.getMusicCurrentTime();
-            binding.seekBar.setProgress(curTime);
+           // curTime = ms.getMusicCurrentTime();
+            binding.seekBar.setProgress(binding.seekBar.getProgress());
 
             Log.d("메인", "리시버");
             setBtnPlayImage();
@@ -176,36 +176,37 @@ public class MainActivity extends AppCompatActivity {
         binding.playerLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent playerIntent = new Intent(MainActivity.this, MusicPlayerActivity.class);
-//                playerIntent.putExtra("musicData", musicData);
-//                playerIntent.putExtra("isPlaying", isPlaying);
-//                startActivity(playerIntent);
+                Intent playerIntent = new Intent(MainActivity.this, MusicPlayerActivity.class);
+                playerIntent.putExtra("musicData", musicData);
+                playerIntent.putExtra("isPlaying", isPlaying);
+                startActivity(playerIntent);
             }
         });
 
-        binding.playerLayout.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                int action = event.getAction();
-                float startY = 0;
-                float curY = event.getY();
-
-                if (action == MotionEvent.ACTION_DOWN) {
-                    startY = curY;
-                    Log.d("시작점", String.valueOf(startY));
-                } else if (action == MotionEvent.ACTION_UP) {
-                    Log.d("종료점", String.valueOf(curY));
-                    if (startY < curY) {
-                        Log.d("Visibillity", "Gone");
-                        binding.playerLayout.setVisibility(View.GONE);
-                        serviceIntent.putExtra("release", true);
-                        sendBroadcast(serviceIntent);
-                        unbindService(conn);
-                    }
-                }
-                return false;
-            }
-        });
+//        binding.playerLayout.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                int action = event.getAction();
+//                float startY = 0;
+//                float curY = event.getY();
+//
+//                if (action == MotionEvent.ACTION_DOWN) {
+//                    startY = curY;
+//                    Log.d("시작점", String.valueOf(startY));
+//                }
+//                if (action == MotionEvent.ACTION_UP) {
+//                    Log.d("종료점", String.valueOf(curY));
+//                    if (startY < curY) {
+//                        Log.d("Visibillity", "Gone");
+//                        binding.playerLayout.setVisibility(View.GONE);
+//                        serviceIntent.putExtra("release", true);
+//                        sendBroadcast(serviceIntent);
+//                        serviceIntent.putExtra("release", false);
+//                    }
+//                }
+//                return false;
+//            }
+//        });
 
         //이전곡과 다음곡으로 Skip하기 위한 버튼 이벤트
         binding.btnNextMain.setOnClickListener(new View.OnClickListener() {

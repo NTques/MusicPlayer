@@ -100,7 +100,7 @@ public class MusicPlayService extends Service {
         Uri uri = Uri.parse(musicData.getDataPath());
         try {
             mediaPlayer.reset();
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            //mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             mediaPlayer.setDataSource(getApplicationContext() , uri);
             mediaPlayer.prepareAsync();
         } catch (Exception e) {
@@ -141,13 +141,12 @@ public class MusicPlayService extends Service {
                 setMusic();
             }
 
-            boolean doRelease = intent.getBooleanExtra("release", false);
-            if (doRelease) {
-                mainIntent.putExtra("isPlaying", false);
-                sendBroadcast(mainIntent);
-                mediaPlayer.release();
-                MusicPlayService.super.onDestroy();
-            }
+//            boolean doRelease = intent.getBooleanExtra("release", false);
+//            if (doRelease) {
+//                mainIntent.putExtra("isPlaying", false);
+//                sendBroadcast(mainIntent);
+//                mediaPlayer.release();
+//            }
         }
     };
 
