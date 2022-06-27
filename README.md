@@ -1,6 +1,7 @@
 # MusicPlayer
 
 음악플레이어입니다.
+프로젝트 내부에 apk파일을 업로드 해두었습니다.
 
 간단한 구조
 1. MusicFragment에서 Content Provider를 통해 MusicListAdapter의 ArrayList(playList)에 add.
@@ -29,3 +30,4 @@
  - 앨범별로 볼 수 있는 RecyclerView 생성
  - 폴더별로 볼 수 있는 RecyclerView 생성
  - 가사 플로팅 기능
+ - Foreground Service
