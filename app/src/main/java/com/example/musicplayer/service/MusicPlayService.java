@@ -100,7 +100,7 @@ public class MusicPlayService extends Service {
         Uri uri = Uri.parse(musicData.getDataPath());
         try {
             mediaPlayer.reset();
-            //mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             mediaPlayer.setDataSource(getApplicationContext() , uri);
             mediaPlayer.prepareAsync();
         } catch (Exception e) {
