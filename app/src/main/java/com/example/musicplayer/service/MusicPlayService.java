@@ -39,6 +39,7 @@ public class MusicPlayService extends Service {
     public void onCreate() {
         Log.d("서비스", "생성");
 
+        mediaPlayer = new MediaPlayer();
         registerReceiver(receiver, new IntentFilter("Service"));
         super.onCreate();
     }
@@ -47,7 +48,6 @@ public class MusicPlayService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d("서비스", "시작");
 
-        mediaPlayer = new MediaPlayer();
         //포지션만 Intent하게 될 경우를 대비하여 if 문으로 playList값이 null일 경우 NullPointError 방지
         if (intent.getSerializableExtra("playList") != null) {
             playList = (ArrayList<MusicDTO>) intent.getSerializableExtra("playList");
