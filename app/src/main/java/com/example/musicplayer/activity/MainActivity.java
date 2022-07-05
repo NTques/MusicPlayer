@@ -165,8 +165,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 serviceIntent.putExtra("curTime", seekBar.getProgress());
+                serviceIntent.putExtra("mode", "start");
                 sendBroadcast(serviceIntent);
                 isTracking = false;
+                serviceIntent.putExtra("mode", "");
             }
         });
 
