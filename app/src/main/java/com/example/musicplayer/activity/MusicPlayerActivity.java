@@ -116,6 +116,7 @@ public class MusicPlayerActivity extends AppCompatActivity {
                 }
                 serviceIntent.putExtra("curTime", binding.seekBar2.getProgress());
                 sendBroadcast(serviceIntent);
+                serviceIntent.putExtra("mode", "");
             }
         });
 
@@ -132,8 +133,10 @@ public class MusicPlayerActivity extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 serviceIntent.putExtra("curTime", seekBar.getProgress());
+                serviceIntent.putExtra("mode", "start");
                 sendBroadcast(serviceIntent);
                 isTracking = false;
+                serviceIntent.putExtra("mode", "");
             }
         });
 
@@ -142,6 +145,7 @@ public class MusicPlayerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 serviceIntent.putExtra("skip", "next");
                 sendBroadcast(serviceIntent);
+                serviceIntent.putExtra("skip", "");
             }
         });
 
@@ -150,6 +154,7 @@ public class MusicPlayerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 serviceIntent.putExtra("skip", "pre");
                 sendBroadcast(serviceIntent);
+                serviceIntent.putExtra("skip", "");
             }
         });
     }
