@@ -43,6 +43,9 @@ public class MusicPlayerActivity extends AppCompatActivity {
             ms = mb.getService();
 
             isService = true;
+
+            ProgressThread thread = new ProgressThread();
+            thread.start();
         }
 
         @Override
@@ -81,8 +84,6 @@ public class MusicPlayerActivity extends AppCompatActivity {
 
         //SeekBar 프로그레스 변경
         setSeekBarProgress(((MainActivity) MainActivity.mContext).getCurrentTime());
-        ProgressThread thread = new ProgressThread();
-        thread.start();
     }
 
     BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -199,7 +200,7 @@ public class MusicPlayerActivity extends AppCompatActivity {
 
     class ProgressThread extends Thread {
         public void run() {
-            while (true) {
+            while (isService) {
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {

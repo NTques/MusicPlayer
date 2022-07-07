@@ -53,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
             ms = mb.getService();
 
             isService = true;
+
+            ProgressThread thread = new ProgressThread();
+            thread.start();
         }
 
         @Override
@@ -251,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
     //SeekBar의 Progress를 MusicPlayService의 MediaPlayer의 CurrentPosition을 받아와 세팅
     class ProgressThread extends Thread {
         public void run() {
-            while (true) {
+            while (isService) {
                 try {
                     Thread.sleep(500);
                 } catch (Exception e) {
