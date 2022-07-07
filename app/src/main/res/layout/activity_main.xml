@@ -11,9 +11,12 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#0E0B1E"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabIndicatorColor="#FE2851"
+        app:tabTextColor="#FFFFFF">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
@@ -40,19 +43,19 @@
         android:id="@+id/mainFrame"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#C6B5B5"
+        android:background="#0E0B1E"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/playerLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout"/>
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/playerLayout"
         android:layout_width="match_parent"
         android:layout_height="88dp"
-        android:background="#DC3030"
+        android:background="#171231"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,9 +63,10 @@
 
         <SeekBar
             android:id="@+id/seekBar"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="#CD7171"
+            android:progressDrawable="@drawable/custom_seekbar"
+            android:progressTint="#FE2851"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -71,11 +75,11 @@
             android:id="@+id/ivAlbumMain"
             android:layout_width="50dp"
             android:layout_height="0dp"
-            android:background="@drawable/ic_baseline_album_24"
-            app:layout_constraintDimensionRatio="1:1"
-            android:scaleType="centerCrop"
             android:layout_marginStart="12dp"
+            android:background="@drawable/ic_baseline_album_24"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
@@ -89,6 +93,8 @@
             android:focusable="true"
             android:singleLine="true"
             android:text="Title"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@+id/btnPreMain"
             app:layout_constraintStart_toEndOf="@+id/ivAlbumMain"
             app:layout_constraintTop_toTopOf="@+id/ivAlbumMain" />
@@ -103,6 +109,8 @@
             android:focusable="true"
             android:singleLine="true"
             android:text="Artist"
+            android:textColor="#707070"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/ivAlbumMain"
             app:layout_constraintEnd_toStartOf="@+id/btnPreMain"
             app:layout_constraintStart_toEndOf="@+id/ivAlbumMain" />
