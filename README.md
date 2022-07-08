@@ -31,3 +31,4 @@
  - 폴더별로 볼 수 있는 RecyclerView 생성
  - 가사 플로팅 기능
  - Foreground Service
+ - Audio Focus
